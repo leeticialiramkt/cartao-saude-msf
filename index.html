@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartão Saúde Completa | Médico sem Fila</title>
+<meta name="description" content="Cartão Saúde Completa da Médico sem Fila: até 60% de desconto em consultas e exames em Belo Horizonte. Planos a partir de R$39,90/mês. Agende pelo WhatsApp." />
+<meta name="keywords" content="cartão de desconto saúde belo horizonte, cartão saúde completa, desconto consulta bh, médico sem fila, clube de benefícios saúde bh" />
+<link rel="canonical" href="https://cartao-saude-msf.vercel.app/" />
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple:       #8F4096;
+    --purple-dark:  #6B2E72;
+    --purple-light: #B060C0;
+    --orange:       #F27821;
+    --orange-dark:  #D4660F;
+    --green:        #61CE70;
+    --green-dark:   #4AB559;
+    --text-dark:    #2C3E50;
+    --text-gray:    #5D6D7E;
+    --bg-light:     #F8F6FA;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Changa', sans-serif; color:var(--text-dark); line-height:1.6; overflow-x:hidden; }
+  img { max-width:100%; display:block; }
+  a { text-decoration:none; color:inherit; }
+  .container { max-width:1180px; margin:0 auto; padding:0 24px; }
+  .fade-up { opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
+  .fade-up.visible { opacity:1; transform:translateY(0); }
+
+  /* HEADER */
+  header {
+    position:sticky; top:0; z-index:1000;
+    background:#fff; padding:14px 0;
+    box-shadow:0 2px 12px rgba(0,0,0,0.06);
+    transition: padding .3s ease, box-shadow .3s ease;
+  }
+  header.scrolled { padding:8px 0; box-shadow:0 4px 18px rgba(0,0,0,0.1); }
+  .header-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .logo-img { height:42px; transition:height .3s ease; }
+  header.scrolled .logo-img { height:34px; }
+  .header-right { display:flex; align-items:center; gap:18px; }
+  .header-phone { display:flex; align-items:center; gap:6px; color:var(--purple); font-weight:600; font-size:.95rem; }
+  .header-phone svg { width:18px; height:18px; fill:var(--purple); }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 28px; border-radius:50px; font-weight:700; font-size:1rem;
+    cursor:pointer; border:none; transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+  }
+  .btn:hover { transform:translateY(-2px); }
+  .btn-orange { background:var(--orange); color:#fff; box-shadow:0 6px 18px rgba(242,120,33,.35); }
+  .btn-orange:hover { background:var(--orange-dark); }
+  .btn-green { background:var(--green); color:#fff; box-shadow:0 6px 20px rgba(97,206,112,.4); }
+  .btn-green:hover { background:var(--green-dark); }
+  .btn-sm { padding:10px 20px; font-size:.9rem; }
+
+  /* HERO */
+  .hero {
+    background:linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+    color:#fff; padding:90px 0 110px; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; width:600px; height:600px; border-radius:50%;
+    background:rgba(255,255,255,0.06); top:-250px; right:-150px;
+  }
+  .hero::after {
+    content:''; position:absolute; width:400px; height:400px; border-radius:50%;
+    background:rgba(255,255,255,0.05); bottom:-200px; left:-100px;
+  }
+  .hero-inner { position:relative; z-index:2; max-width:760px; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.3); border-radius:50px; padding:8px 18px;
+    font-size:.9rem; font-weight:600; margin-bottom:22px;
+  }
+  .hero h1 { font-size:2.8rem; font-weight:800; line-height:1.15; margin-bottom:20px; }
+  .hero h1 span { color:#FFD9A0; }
+  .hero p.subtitle { font-size:1.2rem; color:rgba(255,255,255,.92); margin-bottom:34px; max-width:620px; }
+  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .hero-note { margin-top:18px; font-size:.9rem; color:rgba(255,255,255,.75); }
+
+  /* O QUE É */
+  .section { padding:80px 0; }
+  .section-light { background:var(--bg-light); }
+  .section-title { text-align:center; margin-bottom:48px; }
+  .section-title h2 { font-size:2.1rem; font-weight:800; color:var(--purple-dark); margin-bottom:12px; }
+  .section-title p { color:var(--text-gray); font-size:1.08rem; max-width:620px; margin:0 auto; }
+
+  .whatcard-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; align-items:center; }
+  .whatcard-text p { font-size:1.08rem; color:var(--text-gray); margin-bottom:18px; }
+  .whatcard-text strong { color:var(--text-dark); }
+  .whatcard-visual {
+    background:linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%);
+    border-radius:24px; padding:40px; color:#fff;
+  }
+  .whatcard-visual .price-tag { font-size:.95rem; opacity:.85; margin-bottom:6px; }
+  .whatcard-visual .price-big { font-size:2.6rem; font-weight:800; margin-bottom:4px; }
+  .whatcard-visual .price-sub { font-size:.95rem; opacity:.9; margin-bottom:22px; }
+  .whatcard-visual ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .whatcard-visual li { display:flex; align-items:flex-start; gap:10px; font-size:.98rem; }
+  .whatcard-visual li svg { width:20px; height:20px; flex-shrink:0; margin-top:2px; }
+
+  /* BENEFÍCIOS CARDS */
+  .benefits-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:26px; }
+  .benefit-card {
+    background:#fff; border-radius:18px; padding:32px 26px; box-shadow:0 8px 24px rgba(0,0,0,.05);
+    border:1px solid rgba(143,64,150,.08); transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .benefit-card:hover { transform:translateY(-6px); box-shadow:0 16px 32px rgba(143,64,150,.12); }
+  .benefit-icon {
+    width:56px; height:56px; border-radius:14px; background:var(--bg-light);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .benefit-icon svg { width:28px; height:28px; stroke:var(--purple); fill:none; stroke-width:2; }
+  .benefit-card h3 { font-size:1.15rem; font-weight:700; margin-bottom:8px; color:var(--text-dark); }
+  .benefit-card p { color:var(--text-gray); font-size:.96rem; }
+
+  /* PLANOS */
+  .plans-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:30px; max-width:900px; margin:0 auto; }
+  .plan-card {
+    background:#fff; border-radius:24px; padding:40px 32px; border:2px solid #ECE4EE;
+    position:relative; transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .plan-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px rgba(143,64,150,.12); }
+  .plan-card.featured { border-color:var(--purple); box-shadow:0 16px 36px rgba(143,64,150,.16); }
+  .plan-badge {
+    position:absolute; top:-16px; left:50%; transform:translateX(-50%);
+    background:var(--orange); color:#fff; font-size:.8rem; font-weight:700;
+    padding:7px 20px; border-radius:50px; white-space:nowrap;
+  }
+  .plan-name { font-size:1.3rem; font-weight:800; color:var(--purple-dark); margin-bottom:6px; text-align:center; }
+  .plan-for { text-align:center; color:var(--text-gray); font-size:.9rem; margin-bottom:22px; }
+  .plan-price { text-align:center; margin-bottom:26px; }
+  .plan-price .value { font-size:2.6rem; font-weight:800; color:var(--text-dark); }
+  .plan-price .cents { font-size:1.4rem; font-weight:700; }
+  .plan-price .period { color:var(--text-gray); font-size:1rem; }
+  .plan-features { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+  .plan-features li { display:flex; align-items:flex-start; gap:10px; font-size:.95rem; color:var(--text-dark); }
+  .plan-features li svg { width:20px; height:20px; flex-shrink:0; stroke:var(--green-dark); fill:none; stroke-width:2.5; margin-top:1px; }
+  .plan-card .btn { width:100%; }
+
+  /* O QUE NÃO COBRE */
+  .notice-box {
+    background:#fff; border:1.5px solid #ECE4EE; border-radius:20px; padding:36px;
+    max-width:880px; margin:0 auto;
+  }
+  .notice-box h3 { color:var(--purple-dark); font-size:1.2rem; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .notice-box h3 svg { width:24px; height:24px; stroke:var(--orange); fill:none; stroke-width:2; }
+  .notice-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .notice-list li { display:flex; align-items:flex-start; gap:10px; color:var(--text-gray); font-size:.96rem; }
+  .notice-list li svg { width:18px; height:18px; flex-shrink:0; stroke:#B0394A; fill:none; stroke-width:2.5; margin-top:2px; }
+  .notice-foot { margin-top:18px; font-size:.88rem; color:var(--text-gray); font-style:italic; }
+
+  /* COMO FUNCIONA */
+  .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+  .step-card { text-align:center; padding:0 14px; }
+  .step-num {
+    width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--purple),var(--purple-light));
+    color:#fff; font-size:1.6rem; font-weight:800; display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+  }
+  .step-card h3 { font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+  .step-card p { color:var(--text-gray); font-size:.95rem; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background:linear-gradient(120deg, var(--purple-dark), var(--purple));
+    color:#fff; padding:64px 0; text-align:center;
+  }
+  .cta-banner h2 { font-size:1.9rem; font-weight:800; margin-bottom:14px; }
+  .cta-banner p { font-size:1.1rem; color:rgba(255,255,255,.9); margin-bottom:30px; max-width:600px; margin-left:auto; margin-right:auto; }
+
+  /* FAQ */
+  .faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+  .faq-item { background:#fff; border-radius:14px; border:1px solid #ECE4EE; overflow:hidden; }
+  .faq-question {
+    width:100%; text-align:left; background:none; border:none; padding:20px 24px;
+    font-family:'Changa',sans-serif; font-size:1.02rem; font-weight:700; color:var(--text-dark);
+    display:flex; justify-content:space-between; align-items:center; cursor:pointer;
+  }
+  .faq-question .icon { width:22px; height:22px; flex-shrink:0; transition:transform .3s ease; color:var(--purple); font-size:1.3rem; }
+  .faq-question.active .icon { transform:rotate(45deg); }
+  .faq-answer { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-answer.open { max-height:400px; }
+  .faq-answer p { padding:0 24px 20px; color:var(--text-gray); font-size:.96rem; }
+
+  /* LOCALIZAÇÃO */
+  .units-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:26px; }
+  .unit-card { background:#fff; border-radius:18px; padding:30px; box-shadow:0 8px 24px rgba(0,0,0,.05); }
+  .unit-card h3 { color:var(--purple-dark); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .unit-card h3 svg { width:20px; height:20px; stroke:var(--orange); fill:none; stroke-width:2; }
+  .unit-card p { color:var(--text-gray); font-size:.96rem; }
+
+  /* FOOTER */
+  footer { background:#2A1A2D; color:rgba(255,255,255,.85); padding:60px 0 28px; }
+  .footer-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:40px; margin-bottom:36px; }
+  .footer-logo { height:40px; filter:brightness(0) invert(1); margin-bottom:16px; }
+  .footer-col h4 { color:#fff; font-size:1rem; margin-bottom:14px; }
+  .footer-col p, .footer-col a { font-size:.9rem; color:rgba(255,255,255,.7); display:block; margin-bottom:8px; }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:22px; font-size:.82rem; color:rgba(255,255,255,.55); text-align:center; }
+
+  /* WHATSAPP FLUTUANTE */
+  .wa-float {
+    position:fixed; bottom:26px; right:26px; z-index:1100;
+    width:62px; height:62px; border-radius:50%; background:var(--green-dark);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .wa-float svg { width:30px; height:30px; fill:#fff; }
+  .wa-float::before {
+    content:''; position:absolute; width:100%; height:100%; border-radius:50%;
+    background:var(--green); animation:pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform:scale(1); opacity:.7; }
+    70% { transform:scale(1.7); opacity:0; }
+    100% { transform:scale(1.7); opacity:0; }
+  }
+
+  @media (max-width:1024px) {
+    .whatcard-grid { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .hero h1 { font-size:2.1rem; }
+    .hero p.subtitle { font-size:1.05rem; }
+    .plans-grid { grid-template-columns:1fr; }
+    .steps-grid { grid-template-columns:1fr; }
+    .units-grid { grid-template-columns:1fr; }
+    .header-phone { display:none; }
+    .footer-grid { grid-template-columns:1fr; gap:28px; }
+  }
+  @media (max-width:480px) {
+    .hero { padding:60px 0 80px; }
+    .hero h1 { font-size:1.75rem; }
+    .section { padding:56px 0; }
+    .hero-ctas { flex-direction:column; align-items:stretch; }
+    .hero-ctas .btn { width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <img class="logo-img" src="https://medicosemfila.com.br/wp-content/uploads/2026/03/Marca-Cores-01-1.png" alt="Médico sem Fila" />
+    <div class="header-right">
+      <div class="header-phone">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
+        (31) 3272-8200
+      </div>
+      <a class="btn btn-orange btn-sm" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="hero-badge">💳 Cartão Saúde Completa</span>
+    <h1 class="fade-up visible">Até <span>60% de desconto</span> em consultas e exames em Belo Horizonte</h1>
+    <p class="subtitle fade-up visible">Mensalidade a partir de R$39,90. Sem carência, sem burocracia: você usa o desconto sempre que precisar de consulta ou exame nas unidades da Médico sem Fila.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-green" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener">Quero meu desconto no WhatsApp</a>
+      <a class="btn btn-orange" href="#planos">Ver planos e preços</a>
+    </div>
+    <p class="hero-note">⚠️ O Cartão Saúde Completa não é plano de saúde, seguro-saúde ou convênio médico.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>O que é o Cartão Saúde Completa?</h2>
+      <p>Um programa de vantagens comerciais da Médico sem Fila que dá desconto em consultas e exames — não um plano de saúde.</p>
+    </div>
+    <div class="whatcard-grid">
+      <div class="whatcard-text fade-up">
+        <p>Com o <strong>Cartão Saúde Completa</strong>, você paga uma mensalidade acessível e, a cada consulta ou exame realizado nas unidades da Médico sem Fila, já paga o valor <strong>com o desconto aplicado</strong> — na hora, sem reembolso, sem formulário, sem espera de autorização.</p>
+        <p>É ideal para quem não tem plano de saúde (ou tem um plano limitado) e quer economizar no dia a dia em consultas com especialistas, exames laboratoriais, ultrassonografia, raio X, endoscopia e colonoscopia.</p>
+        <p>Funciona assim: você escolhe o plano Individual ou Família, fala com a nossa equipe pelo WhatsApp e já pode agendar com desconto nas duas unidades no Centro de Belo Horizonte.</p>
+      </div>
+      <div class="whatcard-visual fade-up">
+        <div class="price-tag">A partir de</div>
+        <div class="price-big">R$ 39,90<span style="font-size:1.1rem;">/mês</span></div>
+        <div class="price-sub">Plano Individual</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 50% de desconto em consultas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 30% em exames laboratoriais</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 15% em USG, Raio X e exames de alta complexidade</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1 consulta grátis a cada 11 meses em dia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Por que escolher o Cartão Saúde Completa</h2>
+      <p>Desconto de verdade, nas unidades da Médico sem Fila, sem letras miúdas escondidas.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card fade-up">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h3>Desconto direto no atendimento</h3>
+        <p>Até 60% em consultas e até 30% em exames, aplicado na hora — sem reembolso depois.</p>
+      </div>
+      <div class="benefit-card fade-up">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
+        <h3>Mensalidade acessível</h3>
+        <p>A partir de R$39,90/mês. O plano Família cobre o titular e até 2 dependentes sem custo extra.</p>
+      </div>
+      <div class="benefit-card fade-up">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>Sem carência</h3>
+        <p>O desconto vale desde a sua primeira consulta ou exame após a assinatura.</p>
+      </div>
+      <div class="benefit-card fade-up">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h3>Toda a estrutura da Médico sem Fila</h3>
+        <p>Atendimento nas duas unidades no Centro de BH, com especialistas em mais de uma dezena de áreas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="planos">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Escolha o seu plano</h2>
+      <p>Duas modalidades, descontos crescentes conforme o plano.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan-card fade-up">
+        <div class="plan-name">Individual</div>
+        <div class="plan-for">Somente o titular</div>
+        <div class="plan-price"><span class="value">R$ 39<span class="cents">,90</span></span><div class="period">por mês</div></div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 50% de desconto em consultas (a partir de R$60)</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 30% em exames laboratoriais</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 15% em USG e Raio X</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 15% em endoscopia e colonoscopia</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 1 consulta grátis a cada 11 meses em dia</li>
+        </ul>
+        <a class="btn btn-orange" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener">Assinar o Individual</a>
+      </div>
+      <div class="plan-card featured fade-up">
+        <div class="plan-badge">Mais vantajoso para famílias</div>
+        <div class="plan-name">Família</div>
+        <div class="plan-for">Titular + até 2 dependentes, sem custo extra</div>
+        <div class="plan-price"><span class="value">R$ 69<span class="cents">,90</span></span><div class="period">por mês</div></div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 60% de desconto em consultas (a partir de R$48)</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 30% em exames laboratoriais</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 15% em USG e Raio X</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 15% em endoscopia e colonoscopia</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 2 consultas grátis a cada 11 meses em dia</li>
+        </ul>
+        <a class="btn btn-green" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener">Assinar o Família</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Importante você saber</h2>
+      <p>Transparência antes de assinar — sem letras miúdas.</p>
+    </div>
+    <div class="notice-box fade-up">
+      <h3><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg> O Cartão Saúde Completa NÃO é:</h3>
+      <ul class="notice-list">
+        <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Plano de saúde, seguro-saúde ou convênio médico — não há registro na ANS.</li>
+        <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Cobertura para internação, urgência, emergência, cirurgia hospitalar, medicamentos, materiais ou próteses.</li>
+        <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Reembolso de atendimentos feitos fora das unidades da Médico sem Fila.</li>
+      </ul>
+      <p class="notice-foot">Recomendamos manter uma cobertura própria para urgência, emergência e internação. O Cartão Saúde Completa dá direito ao desconto em consultas e exames vendidos pela Médico sem Fila — você paga o valor do atendimento já com o desconto aplicado, além da mensalidade.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Como assinar</h2>
+      <p>Três passos simples, direto pelo WhatsApp.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <div class="step-num">1</div>
+        <h3>Escolha o seu plano</h3>
+        <p>Individual, só para você, ou Família, com até 2 dependentes incluídos.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-num">2</div>
+        <h3>Fale com a gente no WhatsApp</h3>
+        <p>Nossa equipe envia o termo de adesão e tira todas as suas dúvidas.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-num">3</div>
+        <h3>Comece a usar o desconto</h3>
+        <p>Agende sua consulta ou exame em uma das unidades e pague já com o desconto aplicado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2 class="fade-up">Desconto todo mês, sem burocracia</h2>
+    <p class="fade-up">Garanta já o seu Cartão Saúde Completa e economize na próxima consulta ou exame.</p>
+    <a class="btn btn-green fade-up" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener">Quero assinar agora</a>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">O Cartão Saúde Completa é um plano de saúde? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Não. É um programa de vantagens comerciais em serviços de saúde, sem registro na ANS. Ele dá direito a descontos em consultas e exames vendidos pela Médico sem Fila — você paga o valor do atendimento já com desconto, além da mensalidade.</p></div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">Quais descontos eu tenho? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>No plano Individual: 50% em consultas, 30% em exames laboratoriais e 15% em exames de imagem (USG, Raio X) e de alta complexidade (endoscopia, colonoscopia). No plano Família, o desconto em consultas sobe para 60%, com os mesmos percentuais nos exames.</p></div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">Posso incluir dependentes? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Sim, no plano Família, sem custo adicional. Podem ser incluídos o cônjuge ou companheiro(a) e filhos solteiros com menos de 21 anos, até o limite de 2 dependentes.</p></div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">Os descontos valem em qualquer clínica? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Os descontos valem para consultas e exames realizados nas unidades da Médico sem Fila. Não há reembolso ou desconto para atendimentos feitos por conta própria em outros profissionais ou estabelecimentos.</p></div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">O que acontece se eu atrasar o pagamento? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Ao atrasar, você perde o desconto imediatamente, mas pode continuar sendo atendido pelos valores integrais da tabela. Com 3 mensalidades em aberto, o contrato é cancelado automaticamente.</p></div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">Como eu cancelo o cartão? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>O cancelamento pode ser solicitado por telefone, WhatsApp ou e-mail, e você recebe um comprovante da solicitação.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Nossas unidades</h2>
+      <p>Atendimento presencial em duas unidades no Centro de Belo Horizonte.</p>
+    </div>
+    <div class="units-grid">
+      <div class="unit-card fade-up">
+        <h3><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 1114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Unidade Olegário Maciel</h3>
+        <p>Rua dos Carijós, 926 — Centro, Belo Horizonte<br>(esquina com a Av. Olegário Maciel)</p>
+      </div>
+      <div class="unit-card fade-up">
+        <h3><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 1114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Unidade São Paulo</h3>
+        <p>Rua São Paulo, 940 — Centro, Belo Horizonte<br>(em frente ao Shopping Cidade)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <img class="footer-logo" src="https://medicosemfila.com.br/wp-content/themes/medicosemfila_theme/assets/images/alt_temp/logo/logo.png" alt="Médico sem Fila" />
+        <p>Cartão Saúde Completa — um programa de vantagens comerciais em serviços de saúde da Médico sem Fila.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <p>Telefone: (31) 3272-8200</p>
+        <p>WhatsApp: (31) 99670-9755</p>
+      </div>
+      <div class="footer-col">
+        <h4>Unidades</h4>
+        <p>Rua dos Carijós, 926 — Centro, BH</p>
+        <p>Rua São Paulo, 940 — Centro, BH</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Médico sem Fila Serviços de Saúde Ltda. · Responsáveis técnicos: Dr. Guilherme F. de Assunção Alves — CRM 107925 · Dr. Christiano Augusto Andrade — CRM 78603<br>
+      O Cartão Saúde Completa não é plano de saúde, seguro-saúde ou convênio médico, não se submetendo a registro perante a ANS.
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5531996709755?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Cart%C3%A3o%20Sa%C3%BAde%20Completa%20da%20M%C3%A9dico%20sem%20fila" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.4-.6-2.3-1.1-3.2-2.6-.1-.2-.1-.4.1-.5.3-.3.5-.6.7-.9.1-.2.1-.4 0-.5-.2-.5-.9-2.1-1.1-2.4-.2-.3-.4-.3-.6-.3h-.5c-.2 0-.5.1-.7.4-.2.3-.9 1-.9 2.3 0 1.3.9 2.6 1 2.8.1.1 1.8 2.9 4.4 3.9 2.1.8 2.5.7 3-.1.3-.5.9-1.5 1.1-1.8.2-.4.1-.6-.1-.7zM12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.5A10 10 0 1012 2z"/></svg>
+</a>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-question').forEach(b => { b.classList.remove('active'); b.querySelector('.icon').textContent = '+'; });
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('active');
+      btn.querySelector('.icon').textContent = '×';
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
